@@ -49,17 +49,26 @@ def roman_numbers(nbr_str):
     1999
     >>> roman_numbers("MDCCCCLXXXXVIIII")
     1999
+    >>> roman_numbers("IIIII")
+    NaN
+    >>> roman_numbers("LIIIIIX")
+    NaN
+    >>> roman_numbers("MVV")
+    NaN
     """
     value = 0
     previous_roman_value = ""
     previous_decimal_value = 0
     roman_numbers = ["I", "V", "X", "L", "C", "D", "M"]
     decimal_numbers = [1, 5, 10, 50, 100, 500, 1000]
+    failstate = False
     for n in list(nbr_str):
         next_value = 0
+        current_idx = -1;
         for idx, val in enumerate(roman_numbers):
             if n == val:
                 next_value = decimal_numbers[idx]
+                current_idx = idx
 
         if next_value > previous_decimal_value:
             value += next_value - previous_decimal_value * 2 
@@ -71,4 +80,11 @@ def roman_numbers(nbr_str):
         else:
             previous_decimal_value = next_value
         previous_roman_value = n
-    print(value)
+
+        if current_idx < 6 and previous_decimal_value >= decimal_numbers[current_idx+1]:
+            print("NaN")
+            failstate = True
+                        
+
+    if not failstate:
+        print(value)
