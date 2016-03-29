@@ -25,15 +25,18 @@ def roman_numbers(nbr_str):
     50
     >>> roman_numbers("C")
     100
+    >>> roman_numbers("CIIX")
+    108
+    >>> roman_numbers("CIX")
+    109
     >>> roman_numbers("D")
     500
     >>> roman_numbers("M")
     1000
-    >>> roman_numbers("CIX")
-    109
     """
     value = 0
-    previous_value = 0
+    previous_roman_value = ""
+    previous_decimal_value = 0
     roman_numbers = ["I", "V", "X", "L", "C", "D", "M"]
     decimal_numbers = [1, 5, 10, 50, 100, 500, 1000]
     for n in list(nbr_str):
@@ -42,9 +45,14 @@ def roman_numbers(nbr_str):
             if n == val:
                 next_value = decimal_numbers[idx]
 
-        if next_value > previous_value:
-            value += next_value - previous_value * 2 
+        if next_value > previous_decimal_value:
+            value += next_value - previous_decimal_value * 2 
         else:
             value += next_value
-        previous_value = next_value
+
+        if previous_roman_value == n:
+            previous_decimal_value += next_value
+        else:
+            previous_decimal_value = next_value
+        previous_roman_value = n
     print(value)
