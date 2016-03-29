@@ -33,6 +33,22 @@ def roman_numbers(nbr_str):
     500
     >>> roman_numbers("M")
     1000
+    >>> roman_numbers("MCMXCIX")
+    1999
+    >>> roman_numbers("MCMXCVIIII")
+    1999
+    >>> roman_numbers("MCMLXXXXIX")
+    1999
+    >>> roman_numbers("MCMLXXXXVIIII")
+    1999
+    >>> roman_numbers("MDCCCCXCIX")
+    1999
+    >>> roman_numbers("MDCCCCXCVIIII")
+    1999
+    >>> roman_numbers("MDCCCCLXXXXIX")
+    1999
+    >>> roman_numbers("MDCCCCLXXXXVIIII")
+    1999
     """
     value = 0
     previous_roman_value = ""
