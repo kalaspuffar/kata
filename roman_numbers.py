@@ -59,6 +59,8 @@ def roman_numbers(nbr_str):
     NaN
     >>> roman_numbers("MIC")
     NaN
+    >>> roman_numbers("A")
+    NaN
     """
     value = 0
     previous_roman_value = ""
@@ -73,6 +75,11 @@ def roman_numbers(nbr_str):
             if n == val:
                 next_value = decimal_numbers[idx]
                 current_idx = idx
+        
+        """ Don't allow characters not in the roman numerals serie """
+        if not failstate and current_idx < 0:
+            print("NaN")
+            failstate = True
 
         if not failstate and previous_decimal_value > 0 and next_value > previous_decimal_value * 10:
             print("NaN")
