@@ -15,6 +15,12 @@ def roman_numbers(nbr_str):
     5
     >>> roman_numbers("VI")
     6
+    >>> roman_numbers("IX")
+    9
+    >>> roman_numbers("X")
+    10
+    >>> roman_numbers("XV")
+    15
     """
     value = 0
     for n in list(nbr_str):
@@ -23,6 +29,8 @@ def roman_numbers(nbr_str):
             next_value = 1
         elif n == "V":
             next_value = 5
+        elif n == "X":
+            next_value = 10
 
         if next_value > value:
             value = next_value - value
