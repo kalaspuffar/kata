@@ -55,6 +55,10 @@ def roman_numbers(nbr_str):
     NaN
     >>> roman_numbers("MVV")
     NaN
+    >>> roman_numbers("IC")
+    NaN
+    >>> roman_numbers("MIC")
+    NaN
     """
     value = 0
     previous_roman_value = ""
@@ -70,6 +74,10 @@ def roman_numbers(nbr_str):
                 next_value = decimal_numbers[idx]
                 current_idx = idx
 
+        if not failstate and previous_decimal_value > 0 and next_value > previous_decimal_value * 10:
+            print("NaN")
+            failstate = True
+
         if next_value > previous_decimal_value:
             value += next_value - previous_decimal_value * 2 
         else:
@@ -81,7 +89,7 @@ def roman_numbers(nbr_str):
             previous_decimal_value = next_value
         previous_roman_value = n
 
-        if current_idx < 6 and previous_decimal_value >= decimal_numbers[current_idx+1]:
+        if not failstate and current_idx < 6 and previous_decimal_value >= decimal_numbers[current_idx+1]:
             print("NaN")
             failstate = True
                         
