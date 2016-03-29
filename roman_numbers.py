@@ -21,16 +21,17 @@ def roman_numbers(nbr_str):
     10
     >>> roman_numbers("XV")
     15
+    >>> roman_numbers("L")
+    50
     """
     value = 0
+    roman_numbers = ["I", "V", "X", "L"]
+    decimal_numbers = [1, 5, 10, 50]
     for n in list(nbr_str):
         next_value = 0
-        if n == "I":
-            next_value = 1
-        elif n == "V":
-            next_value = 5
-        elif n == "X":
-            next_value = 10
+        for idx, val in enumerate(roman_numbers):
+            if n == val:
+                next_value = decimal_numbers[idx]
 
         if next_value > value:
             value = next_value - value
