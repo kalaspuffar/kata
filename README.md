@@ -1,1 +1,1 @@
-# python_kata
+# Kata's with friends.
