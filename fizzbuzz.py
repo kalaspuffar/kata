@@ -19,6 +19,8 @@ def fizzbuzz(number):
     1
     >>> fizzbuzz(2)
     2
+    >>> fizzbuzz(3)
+    fizz
     """
     if (number == 2): return 2
     return 1
