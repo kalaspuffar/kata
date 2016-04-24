@@ -17,5 +17,7 @@ def fizzbuzz(number):
     """
     >>> fizzbuzz(1)
     1
+    >>> fizzbuzz(2)
+    2
     """
     return 1
