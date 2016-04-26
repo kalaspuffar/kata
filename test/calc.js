@@ -6,18 +6,22 @@ function calc (calcString) {
   const tokens = calcString.split(' ')
   var lastOperator = '+'
   return tokens.reduce(
-    (sum, number) => {
-      if (number === '+' || number === '-') {
-        lastOperator = number
+    (sum, token) => {
+    if (token === '+' || token === '-' || token === '*' ) {
+        lastOperator = token
         return sum
       }
       if(lastOperator === '-') {
-        return sum - Number(number)
+        return sum - Number(token)
       }
-      return sum + Number(number)
+      if(lastOperator === '*') {
+        return sum * Number(token)
+      }
+      return sum + Number(token)
     },
     0
   )
+  
 }
 
 describe('calc', () => {
@@ -34,6 +38,9 @@ describe('calc', () => {
   })
   it('should support subtraction', () => {
     expect(calc('1 - 1')).to.equal(0)
+  })
+  it('should support multiplication', () => {
+    expect(calc('1 * 1')).to.equal(1)
   })
 })
 
