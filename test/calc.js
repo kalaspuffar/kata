@@ -3,9 +3,16 @@ const chai = require('chai')
 const expect = chai.expect
 
 function calc (calcString) {
-  if (calcString === '1 + 1') return 2
-  if (calcString === '2 + 1') return 3
-  return Number(calcString)
+  const tokens = calcString.split(' ')
+  return tokens.reduce(
+    (sum, number) => {
+      if (number === '+') {
+        number = '0'
+      }
+      return sum + Number(number)
+    },
+    0
+  )
 }
 
 describe('calc', () => {
@@ -17,6 +24,8 @@ describe('calc', () => {
   it('should support addition', () => {
     expect(calc('1 + 1')).to.equal(2)
     expect(calc('2 + 1')).to.equal(3)
+    expect(calc('2 + 2')).to.equal(4)
+    expect(calc('222 + 32')).to.equal(254)
   })
 })
 
