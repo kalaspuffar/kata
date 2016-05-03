@@ -3,32 +3,48 @@ const chai = require('chai')
 const expect = chai.expect
 
 
-const operators = '+-*/()'.split('')
+const operators = '+-*/'.split('')
 const term_ops = '+-'.split('')
 const prod_ops = '*/'.split('')
 
 function calc (calcString) {
   const tokens = calcString.split(' ')
   var values = []
+  var powerLevel = 0
   for (let i = 0; i < tokens.length; i++) {
-    if (operators.indexOf(tokens[i]) === -1) {
-      values.push(Number(tokens[i]))
+    if (tokens[i] === '(') {
+      powerLevel++
+    } else if (tokens[i] === ')' ) {
+      powerLevel--
+    } else if (operators.indexOf(tokens[i]) === -1) {
+      values.push({
+        value: Number(tokens[i])
+      })
     } else {
-      values.push(tokens[i])
+      values.push({
+        value: tokens[i],
+        powerLevel: powerLevel
+      })
     }
   }
 
   var result = []
   for (let i = 0; i < values.length; i++) {
-    if (values[i] === '(' || values[i] === ')') {
-      continue;
-    }
-    if (values[i] === '*' ) {
-      let leftSide = result.pop()
-      result.push(leftSide * values[++i])
-    } else if (values[i] === '/') {
-      let leftSide = result.pop()
-      result.push(leftSide / values[++i])
+    if (values[i].powerLevel === 1) {
+      let leftSide = result.pop().value
+      result.push({
+        value: leftSide + values[++i].value
+      })
+    } else  if (values[i].value === '*' ) {
+      let leftSide = result.pop().value
+      result.push({
+        value: leftSide * values[++i].value
+      })
+    } else if (values[i].value === '/') {
+      let leftSide = result.pop().value
+      result.push({
+        value: leftSide / values[++i].value
+      })
     } else {
       result.push(values[i])
     }
@@ -37,17 +53,21 @@ function calc (calcString) {
 
   result = []
   for (let i = 0; i < values.length; i++) {
-    if (values[i] === '+' ) {
-      let leftSide = result.pop()
-      result.push(leftSide + values[++i])
-    } else if (values[i] === '-') {
-      let leftSide = result.pop();
-      result.push(leftSide - values[++i])
+    if (values[i].value === '+' ) {
+      let leftSide = result.pop().value
+      result.push({
+        value: leftSide + values[++i].value
+      })
+    } else if (values[i].value === '-') {
+      let leftSide = result.pop().value
+      result.push({
+        value: leftSide - values[++i].value
+      })
     } else {
       result.push(values[i])
     }
   }
-  return result[0]
+  return result[0].value
 }
 
 describe('calc', () => {
@@ -76,6 +96,7 @@ describe('calc', () => {
   })
   it('should handle parantazes', () => {
     expect(calc('( 1 )')).to.equal(1)
+    expect(calc('( 1 + 2 ) * 3')).to.equal(9)
   })
 })
 
