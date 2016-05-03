@@ -36,13 +36,18 @@ function calc (calcString) {
         result.push({
           value: leftSide + values[++i].value
         })
-      } else {
+      } else if (values[i].value === '-') {
         let leftSide = result.pop().value
         result.push({
           value: leftSide - values[++i].value
         })
-      }
-    } else  if (values[i].value === '*' ) {
+    } else if (values[i].value === '/') {
+      let leftSide = result.pop().value
+      result.push({
+        value: leftSide / values[++i].value
+      })
+     } 
+    } else if (values[i].value === '*' ) {
       let leftSide = result.pop().value
       result.push({
         value: leftSide * values[++i].value
@@ -105,6 +110,7 @@ describe('calc', () => {
     expect(calc('( 1 )')).to.equal(1)
     expect(calc('( 1 + 2 ) * 3')).to.equal(9)
     expect(calc('( 1 - 2 ) * 3')).to.equal(-3)
+    expect(calc('( 1 / 2 ) * 3')).to.equal(1.5)
   })
 })
 
