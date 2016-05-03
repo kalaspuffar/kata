@@ -7,7 +7,7 @@ function calc (calcString) {
   var lastOperator = '+'
   return tokens.reduce(
     (sum, token) => {
-    if (token === '+' || token === '-' || token === '*' ) {
+    if (token === '+' || token === '-' || token === '*' || token === '/') {
         lastOperator = token
         return sum
       }
@@ -17,11 +17,13 @@ function calc (calcString) {
       if(lastOperator === '*') {
         return sum * Number(token)
       }
+      if(lastOperator === '/') {
+        return sum / Number(token)
+      }
       return sum + Number(token)
     },
     0
   )
-  
 }
 
 describe('calc', () => {
@@ -41,6 +43,9 @@ describe('calc', () => {
   })
   it('should support multiplication', () => {
     expect(calc('1 * 1')).to.equal(1)
+  })
+  it('should support division', () => {
+    expect(calc('2 / 1')).to.equal(2)
   })
 })
 
