@@ -31,10 +31,17 @@ function calc (calcString) {
   var result = []
   for (let i = 0; i < values.length; i++) {
     if (values[i].powerLevel === 1) {
-      let leftSide = result.pop().value
-      result.push({
-        value: leftSide + values[++i].value
-      })
+      if (values[i].value === '+' ) {
+        let leftSide = result.pop().value
+        result.push({
+          value: leftSide + values[++i].value
+        })
+      } else {
+        let leftSide = result.pop().value
+        result.push({
+          value: leftSide - values[++i].value
+        })
+      }
     } else  if (values[i].value === '*' ) {
       let leftSide = result.pop().value
       result.push({
@@ -97,6 +104,7 @@ describe('calc', () => {
   it('should handle parantazes', () => {
     expect(calc('( 1 )')).to.equal(1)
     expect(calc('( 1 + 2 ) * 3')).to.equal(9)
+    expect(calc('( 1 - 2 ) * 3')).to.equal(-3)
   })
 })
 
