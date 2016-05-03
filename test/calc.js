@@ -3,7 +3,7 @@ const chai = require('chai')
 const expect = chai.expect
 
 
-const operators = '+-*/'.split('')
+const operators = '+-*/()'.split('')
 const term_ops = '+-'.split('')
 const prod_ops = '*/'.split('')
 
@@ -20,6 +20,9 @@ function calc (calcString) {
 
   var result = []
   for (let i = 0; i < values.length; i++) {
+    if (values[i] === '(' || values[i] === ')') {
+      continue;
+    }
     if (values[i] === '*' ) {
       let leftSide = result.pop()
       result.push(leftSide * values[++i])
@@ -70,6 +73,9 @@ describe('calc', () => {
   })
   it('should handle addition and division', () => {
     expect(calc('1 + 2 * 3')).to.equal(7)
+  })
+  it('should handle parantazes', () => {
+    expect(calc('( 1 )')).to.equal(1)
   })
 })
 
