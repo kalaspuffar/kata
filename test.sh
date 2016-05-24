@@ -1,6 +1,6 @@
 #!/bin/bash
 while :
 do
-inotifywait -e modify *.py
-python -m doctest *.py
+inotifywait -e modify -r .
+composer exec kahlan
 done

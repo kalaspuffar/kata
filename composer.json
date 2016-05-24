@@ -1,0 +1,13 @@
+{
+    "name": "kata/fizzbuzz",
+    "authors": [
+        {
+            "name": "Samuel Ytterbrink",
+            "email": "samuel@textalk.se"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "crysalead/kahlan": "^2.5"
+    }
+}
